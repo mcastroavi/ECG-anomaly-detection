@@ -16,14 +16,15 @@ Build an ECG anomaly detection model that is clinically useful by prioritizing *
 
 ```
 ECG-anomaly-detection/
-├── ProjectAAI628_model1-checkpoint.ipynb    # Baseline CNN AE
-├── ProjectAAI628_model2-checkpoint.ipynb    # + BatchNorm
-├── ProjectAAI628_model_3-checkpoint.ipynb   # + Dropout
-├── ProjectAAI628_model_4-checkpoint.ipynb   # LeakyReLU + Nadam
-├── ProjectAAI628_model_5-checkpoint.ipynb   # + EarlyStopping
-├── ProjectAAI628_test_model_6.ipynb         # Test notebook - Model 6
-├── Code_ProjectAAI628_model_6.ipynb         # ✅ Final best model
-├── false_negatives_chart.png                # FN comparison chart
+├── Class_Project_Final.py                         # Python script version
+├── ProjectAAI628_model1-checkpoint.ipynb          # Model 1 - Baseline CNN AE
+├── ProjectAAI628_model2-checkpoint.ipynb          # Model 2 - + BatchNorm
+├── ProjectAAI628_model_3-checkpoint.ipynb         # Model 3 - + Dropout
+├── ProjectAAI628_model_4-checkpoint.ipynb         # Model 4 - LeakyReLU + Nadam
+├── ProjectAAI628_model_5-checkpoint.ipynb         # Model 5 - + EarlyStopping
+├── ProjectAAI628_win_model_6.ipynb                # ✅ Model 6 - Best model
+├── Final_Report_ECG_Anomaly_dectection_6_models_.pdf  # Final report
+├── ecg.csv                                        # Dataset
 └── README.md
 ```
 
