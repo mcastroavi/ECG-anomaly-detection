@@ -16,15 +16,15 @@ Build an ECG anomaly detection model that is clinically useful by prioritizing *
 
 ```
 ECG-anomaly-detection/
-├── Class_Project_Final.py                         # Python script version
-├── ProjectAAI628_model1-checkpoint.ipynb          # Model 1 - Baseline CNN AE
-├── ProjectAAI628_model2-checkpoint.ipynb          # Model 2 - + BatchNorm
-├── ProjectAAI628_model_3-checkpoint.ipynb         # Model 3 - + Dropout
-├── ProjectAAI628_model_4-checkpoint.ipynb         # Model 4 - LeakyReLU + Nadam
-├── ProjectAAI628_model_5-checkpoint.ipynb         # Model 5 - + EarlyStopping
-├── ProjectAAI628_win_model_6.ipynb                # ✅ Model 6 - Best model
-├── Final_Report_ECG_Anomaly_dectection_6_models_.pdf  # Final report
-├── ecg.csv                                        # Dataset
+├── Class_Project_Final.py                              # Theory notes & method selection
+├── ProjectAAI628_model1-checkpoint.ipynb               # Model 1 - Baseline CNN AE
+├── ProjectAAI628_model2-checkpoint.ipynb               # Model 2 - + BatchNorm
+├── ProjectAAI628_model_3-checkpoint.ipynb              # Model 3 - + Dropout
+├── ProjectAAI628_model_4-checkpoint.ipynb              # Model 4 - LeakyReLU + Nadam
+├── ProjectAAI628_model_5-checkpoint.ipynb              # Model 5 - + EarlyStopping
+├── ProjectAAI628_win_model_6.ipynb                     # ✅ Model 6 - Best model
+├── Final_Report_ECG_Anomaly_dectection_6_models_.pdf   # Final report
+├── ecg.csv                                             # Dataset
 └── README.md
 ```
 
@@ -32,9 +32,40 @@ ECG-anomaly-detection/
 
 ## 📊 Dataset
 
+- **Name:** ECG5000
 - **Source:** [ECG Dataset (TensorFlow)](http://storage.googleapis.com/download.tensorflow.org/data/ecg.csv)
+- **Type:** Time-series · Collective anomalies
 - **Format:** Heartbeat segments of 140 timesteps, labeled normal / anomaly
-- **Split:** Train/test split via `train_test_split` with fixed seed (42) for reproducibility
+- **Split:** Train/test via `train_test_split` with fixed seed (42) for reproducibility
+
+---
+
+## 📚 Background & Method Selection
+
+### Anomaly Type
+This project targets **collective anomalies** in time-series ECG data — where sequences of data points together form an anomalous pattern that wouldn't be flagged individually.
+
+### Deep Learning Methods Considered
+
+| Method | Description | Best For |
+|--------|-------------|----------|
+| **Autoencoders** | Train on normal data; anomalies have high reconstruction error | ECG signals, time-series |
+| **LSTM Networks** | Capture temporal dependencies in time-series anomalies | Sequential data |
+| **VAEs** | Probabilistic reconstruction; anomalies deviate from latent distribution | Complex distributions |
+| **GANs** | Generate normal samples; anomalies are poorly reconstructed | Image/audio data |
+
+### Hybrid & Advanced Approaches
+- **Semi-supervised learning:** Train mostly on normal data with a few labeled anomalies
+- **Ensemble methods:** Combine multiple detectors for robustness
+- **Attention mechanisms:** Focus on critical segments in sequential data (e.g., ECG)
+
+> Best for: Real-world deployments where anomalies are rare but critical.
+
+### Why Autoencoders?
+For ECG anomaly detection, **autoencoders** are the most effective approach since they:
+- Capture collective anomalies in time-series signals
+- Work well in **unsupervised settings** where anomalies are rare or unlabeled
+- Identify anomalies through reconstruction error without requiring labeled anomaly examples
 
 ---
 
@@ -75,7 +106,7 @@ All models are **CNN Autoencoders** (`cnn_anomaly_detector`) that learn to recon
 
 ![False Negatives vs Model Index](false_negatives_chart.png)
 
-The chart shows how false negatives fluctuated across experiments. Model 4 (LeakyReLU + Nadam) caused a dramatic spike to 295 FNs — a complete sensitivity collapse. Model 6 recovered and achieved the fewest false negatives (7), making it the most clinically viable configuration.
+Model 4 (LeakyReLU + Nadam) caused a dramatic spike to 295 FNs — a complete sensitivity collapse. Model 6 recovered and achieved the fewest false negatives (7), making it the most clinically viable configuration.
 
 ---
 
@@ -107,12 +138,12 @@ The chart shows how false negatives fluctuated across experiments. Model 4 (Leak
 ### Model 5 — + Early Stopping
 - Added EarlyStopping on top of Model 4 configuration
 - **Recall: 0.5529 | FN: 114 | Accuracy: 0.774**
-- 📝 ❌ Partial recovery but sensitivity still collapsed — EarlyStopping alone can't fix a bad optimizer choice
+- 📝 ❌ Partial recovery but sensitivity still collapsed
 
 ### Model 6 — Strided CNN + LayerNorm + PReLU + EarlyStopping ✅ Best
 - Replaced pooling with strided convolutions, LayerNorm, PReLU activations, EarlyStopping
 - **Recall: 0.9832 | FN: 7 | Accuracy: 0.945**
-- 📝 ✅ Best clinical outcome — architectural choices that preserve temporal structure outperform pooling-based designs
+- 📝 ✅ Best clinical outcome — temporal structure preserved, sensitivity maximized
 
 ---
 
@@ -133,6 +164,7 @@ The chart shows how false negatives fluctuated across experiments. Model 4 (Leak
 - **Dropout** improves robustness but must be tuned carefully to avoid hurting recall
 - **Optimizer and activation choices** can catastrophically alter anomaly separability (Model 4)
 - **Strided convolutions** outperform pooling-based designs for temporal ECG signals
+- **Unsupervised autoencoders** are ideal when anomalies are rare or unlabeled
 
 ---
 
@@ -151,12 +183,14 @@ The chart shows how false negatives fluctuated across experiments. Model 4 (Leak
 
 3. Open the final model notebook:
    ```bash
-   jupyter notebook Code_ProjectAAI628_model_6.ipynb
+   jupyter notebook ProjectAAI628_win_model_6.ipynb
    ```
 
 ---
 
-## 📌 Course AAI-628
+## 📌 Course
 
-Applied Artificial Intelligence M.S 
+**AAI-628 — Data Acquisition, Modeling and Analysis: Deep Learning **
+ 
+M.S. Applied Artificial Intelligence 
 Stevens Institute of Technology · Fall 2025
