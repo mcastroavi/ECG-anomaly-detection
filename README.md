@@ -192,5 +192,5 @@ Model 4 (LeakyReLU + Nadam) caused a dramatic spike to 295 FNs — a complete se
 
 **AAI-628 — Data Acquisition, Modeling and Analysis: Deep Learning **
  
-M.S. Applied Artificial Intelligence 
+M.S. Applied Artificial Intelligence -
 Stevens Institute of Technology · Fall 2025
