@@ -155,7 +155,7 @@ The chart shows how false negatives fluctuated across experiments. Model 4 (Leak
 
 ---
 
-## 📌 Course
+## 📌 Course AAI-628
 
-**AAI-628 — Applied Artificial Intelligence**  
+Applied Artificial Intelligence M.S 
 Stevens Institute of Technology · Fall 2025
